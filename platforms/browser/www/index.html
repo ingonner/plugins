@@ -41,6 +41,28 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Hello World</title>
     
+    <script type="text/javascript">
+    document.getElementById("vibrar1").addEventListener("click", vibra(1));
+    document.getElementById("vibrar2").addEventListener("click", vibra(2));
+    document.getElementById("vibrar3").addEventListener("click", vibra(3));
+    document.getElementById("patron").addEventListener("click", patron);
+        
+    
+    
+    function vibra(duracion) {
+           navigator.vibrate(duracion*1000);
+            alert('Vibracion: ' + duracion+' seg.');
+                  
+         }    
+      function patron() {
+            navigator.vibrate([500, 500, 1000, 1000, 2000]);
+            alert('Vibracion con patron');
+                  
+         }  
+       
+        
+    </script>
+    
     
     <script type="text/javascript">
             document.getElementById("createContact").addEventListener("click", createContact);
@@ -129,6 +151,14 @@ alert('Failed because: ' + message);
 <button id="deleteContact" onclick="deleteContact();">Delete</button>
 </div>
     
+    
+    
+    <div>
+        <button id="vibra1" onclick="vibra(1);">1 seg.</button>
+        <button id="vibra2" onclick="vibra(2);">2 seg.</button>
+        <button id="vibra3" onclick="vibra(3);">3 seg.</button>
+        <button id="vibrapatron" onclick="patron();">Patron</button>
+    </div>
     
 </body>
 
