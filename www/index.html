@@ -40,6 +40,25 @@
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Hello World</title>
+    <script>
+        function cameraTakePicture() { 
+   navigator.camera.getPicture(onSuccess, onFail, {  
+      quality: 50, 
+      destinationType: Camera.DestinationType.DATA_URL 
+   });  
+   
+   function onSuccess(imageData) { 
+      var image = document.getElementById('myImage'); 
+      image.src = "data:image/jpeg;base64," + imageData; 
+   }  
+   
+   function onFail(message) { 
+      alert('Failed because: ' + message); 
+   } 
+}
+</script>
+    
+    
     
     <script type="text/javascript">
     document.getElementById("vibrar1").addEventListener("click", vibra(1));
@@ -59,9 +78,7 @@
             alert('Vibracion con patron');
                   
          }  
-       
-        
-    </script>
+      </script>
     
     
     <script type="text/javascript">
@@ -153,12 +170,20 @@ alert('Failed because: ' + message);
     
     
     
-    <div>
+    <div><h1>----Vibracion----</h1>
         <button id="vibra1" onclick="vibra(1);">1 seg.</button>
         <button id="vibra2" onclick="vibra(2);">2 seg.</button>
         <button id="vibra3" onclick="vibra(3);">3 seg.</button>
         <button id="vibrapatron" onclick="patron();">Patron</button>
     </div>
+    
+   <div>
+       <h1>----CAMARA-----</h1>
+    <button id = "cameraTakePicture" onclick = "cameraTakePicture();" >TAKE PICTURE</button>
+<img id="myImage">
+    </div> 
+
+    
     
 </body>
 
