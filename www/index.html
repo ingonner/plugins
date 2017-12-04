@@ -39,7 +39,58 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/estilos.css" />
     <title>Hello World</title>
+    
+    
+    
+     <script>
+            document.addEventListener("deviceready",onDeviceReady,false);
+            function onDeviceReady(){
+                console.log("listo");   
+            }
+
+            function getDatos(){
+                navigator.geolocation.getCurrentPosition(onSuccess,onError,{maximunAge: 300000,timeout:10000, enableHighAccuracy:true});
+            }
+        
+            function onSuccess(position){
+                var latitud=document.getElementById("lat");
+                var longitud=document.getElementById("lon");
+                latitud.innerHTML=""+position.coords.latitude;
+                longitud.innerHTML=""+position.coords.longitude;
+                //creamos un punto de coordenafas geograficas con la latitud y longitud obtenidas
+                var coords= new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                //creamos algunas opciones center: el centro incial del mapa 
+                //zoom el nivel de zoom inicial
+                //el tipo de mapa ROADMAP,SATELLITE,HYBRID y TERRAIN si no coloca ningunop por defecto es ROADMAP
+
+                var opciones = {center: coords, zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP};
+                //Ahora instaciamos un mapa y le indicamos el div en el que se colocara y las opciones
+
+                var mapa = new google.maps.Map(document.getElementById("map"),opciones);
+
+                //ahora agregamos un marcador para las coordenadas dadas
+
+                var marcador= new google.maps.Marker({
+                    position:coords,//es un objeto LatLng que indica la posicion en la que se creara el marcador
+                    map: mapa,
+                    title: ":D",
+                    animation: google.maps. Animation.DROP//animacion  para el marcador
+                });
+
+            }
+
+            function onError(err){ 
+                console.log("codigo de err:"+err.code+"  msj="+err.message);
+            }
+
+            
+
+        </script>
+    
+    
+         
     <script>
         function cameraTakePicture() { 
    navigator.camera.getPicture(onSuccess, onFail, {  
@@ -81,7 +132,72 @@
       </script>
     
     
+    
     <script type="text/javascript">
+		  function getLanguage() 
+      {
+		    navigator.globalization.getPreferredLanguage(onSuccess, onError);
+    		  function onSuccess(language)
+          {
+    		    alert('language: ' + language.value + '\n');
+    		  }
+    		  function onError()
+          {
+    		    alert('Error getting language');
+    		  }
+		  }
+    </script>
+
+    <script type="text/javascript">
+    	function getLocaleName() 
+      {
+        navigator.globalization.getLocaleName(onSuccess, onError);
+           function onSuccess(locale) {
+              alert('locale: ' + locale.value);
+           }
+           function onError(){
+              alert('Error getting locale');
+           }
+      }
+    </script>
+
+    <script type="text/javascript">
+    	function getDate() 
+      {
+        var date = new Date();
+        var options = {
+            formatLength:'short',
+            selector:'date and time'
+        }
+      navigator.globalization.dateToString(date, onSuccess, onError, options);
+        function onSuccess(date) 
+        {
+        alert('date: ' + date.value);
+        }
+        function onError(){
+        alert('Error getting dateString');
+        }
+      }
+    </script>
+
+    <script type="text/javascript">
+    	function getCurrency() {
+   var currencyCode = 'EUR';
+   navigator.globalization.getCurrencyPattern(currencyCode, onSuccess, onError);
+
+   function onSuccess(pattern) {
+      alert('pattern: '  + pattern.pattern  + '\n' +
+         'code: '     + pattern.code     + '\n' +
+         'fraction: ' + pattern.fraction + '\n' +
+         'rounding: ' + pattern.rounding + '\n' +
+         'decimal: '  + pattern.decimal  + '\n' +
+         'grouping: ' + pattern.grouping);
+   }
+   </script>   
+    
+    
+    
+<script type="text/javascript">
             document.getElementById("createContact").addEventListener("click", createContact);
             document.getElementById("findContact").addEventListener("click", findContact);
             document.getElementById("deleteContact").addEventListener("click", deleteContact);
@@ -183,6 +299,31 @@ alert('Failed because: ' + message);
 <img id="myImage">
     </div> 
 
+    
+    
+      	<div> <h1>----Globalization-----</h1>
+    		<button id = "getLanguage" onclick="getLanguage()">LANGUAGE</button>
+    		<button id = "getLocaleName" onclick="getLocaleName()">LOCALE NAME</button>
+    		<button id = "getDate" onclick="getDate()">DATE</button>
+    		<button id = "getCurrency" onclick="getCurrency()">CURRENCY</button>
+  	</div>
+    
+    
+      
+    <div id="datos" class=""> <h1>-------Geolocalizacion-----</h1>
+                    <button onclick="getDatos();">Geolocation</button>
+               <div>
+                   Latitud:<br>
+                    <label id="lat"></label>
+               </div>
+               <div>
+                   Longitud: <br>
+                   <label id="lon"></label>
+               </div>
+            </div>
+            <div id="map">
+                
+            </div>
     
     
 </body>
