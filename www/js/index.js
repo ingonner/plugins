@@ -77,7 +77,8 @@ var networkState = navigator.connection.type;
 };
 
 
- function createFile() {
+
+function createFile() {
    var type = window.TEMPORARY;
    var size = 5*1024*1024;
    window.requestFileSystem(type, size, successCallback, errorCallback)
