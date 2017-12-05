@@ -88,26 +88,7 @@
             
 
         </script>
-    
-    
-         
-    <script>
-        function cameraTakePicture() { 
-   navigator.camera.getPicture(onSuccess, onFail, {  
-      quality: 50, 
-      destinationType: Camera.DestinationType.DATA_URL 
-   });  
-   
-   function onSuccess(imageData) { 
-      var image = document.getElementById('myImage'); 
-      image.src = "data:image/jpeg;base64," + imageData; 
-   }  
-   
-   function onFail(message) { 
-      alert('Failed because: ' + message); 
-   } 
-}
-</script>
+
     
     
     
@@ -133,7 +114,7 @@
     
     
     
-    <script type="text/javascript">
+    <script>
 		  function getLanguage() 
       {
 		    navigator.globalization.getPreferredLanguage(onSuccess, onError);
@@ -148,7 +129,7 @@
 		  }
     </script>
 
-    <script type="text/javascript">
+    <script>
     	function getLocaleName() 
       {
         navigator.globalization.getLocaleName(onSuccess, onError);
@@ -161,7 +142,7 @@
       }
     </script>
 
-    <script type="text/javascript">
+    <script>
     	function getDate() 
       {
         var date = new Date();
@@ -180,7 +161,7 @@
       }
     </script>
 
-    <script type="text/javascript">
+    <script>
     	function getCurrency() {
    var currencyCode = 'EUR';
    navigator.globalization.getCurrencyPattern(currencyCode, onSuccess, onError);
@@ -274,7 +255,7 @@ alert('Failed because: ' + message);
     
     
     
-    <div>
+    <div><h1>----Contactos-----</h1>
 <button id="createContact" onclick="createContact();">New</button>
 </div>
 <div>
@@ -321,9 +302,44 @@ alert('Failed because: ' + message);
                    <label id="lon"></label>
                </div>
             </div>
-            <div id="map">
-                
-            </div>
+            <div id="map"> </div>
+    
+    
+    
+    
+    
+    
+  <div>  <h1>----File System-------</h1>
+<hr>
+<button onclick = "createFile">Crear</button>
+<button onclick = "writeFile">Escribir</button>
+<button onclick = "readFile">Leer</button>
+<button onclick = "removeFile">Eliminar</button>
+<textarea id = "textarea"></textarea>
+</div>      
+
+    
+    <div><h1>----FileTransfer------</h1>
+    <button  class="ui-btn"  id="uploadFile" onclick="uploadFile();">UPLOAD</button>
+ <button  class="ui-btn" id="downloadFile" onclick="downloadFile();">DOWNLOAD</button>
+
+    </div>
+    
+    
+    <div class="app"> <h1>----NetworkInformation</h1>
+        <h1>Tipo de conexion</h1>
+        <div id="deviceready" class="blink">
+            <p class="event listening"><span id="connectionType"></span></p>
+        </div>
+    </div>
+
+    
+    
+<div><h1>----MediaCapture----</h1>
+    <button id = "audioCapture">AUDIO</button>
+<button id = "imageCapture">IMAGE</button>
+<button id = "videoCapture">VIDEO</button>
+    </div>
     
     
 </body>
