@@ -263,6 +263,8 @@ function watchPosition() {
 }	   
 //------------------------------------------------------------------------        
      function downloadFile() {
+         
+         alert("Descarga");
    var fileTransfer = new FileTransfer();
    var uri = encodeURI("http://s14.postimg.org/i8qvaxyup/bitcoin1.jpg");
    var fileURL =  "///storage/emulated/0/DCIM/myFile";
@@ -287,6 +289,7 @@ function watchPosition() {
 } 
 //------------------------------------------------------------------------         
      function uploadFile() {
+         alert("Subida");
    var fileURL = "///storage/emulated/0/DCIM/myFile"
    var uri = encodeURI("http://posttestserver.com/post.php");
    var options = new FileUploadOptions();
