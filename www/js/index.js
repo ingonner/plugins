@@ -38,6 +38,10 @@ var app = {
         document.getElementById("getAcceleration").addEventListener("click", gAcceleration);
         document.getElementById("watchAcceleration").addEventListener("click", wAcceleration);
         
+        document.getElementById("getOrientation").addEventListener("click", getOrientation);
+        document.getElementById("watchOrientation").addEventListener("click", watchOrientation);
+        
+        
 // -------------------------------------------------------------------------------------        
         function createContact() {
             alert("Crear contacto");
@@ -423,9 +427,39 @@ function gAcceleration() {
 	
 } 
 //------------------------------------------------------------------------         
+function getOrientation() {
+   navigator.compass.getCurrentHeading(compassSuccess, compassError);
+
+   function compassSuccess(heading) {
+      alert('Heading: ' + heading.magneticHeading);
+   };
+
+   function compassError(error) {
+      alert('CompassError: ' + error.code);
+   };
+}
+
 
 //------------------------------------------------------------------------         
+function watchOrientation(){
+   var compassOptions = {
+      frequency: 3000
+   }
+   var watchID = navigator.compass.watchHeading(compassSuccess, 
+      compassError, compassOptions);
 
+   function compassSuccess(heading) {
+      alert('Heading: ' + heading.magneticHeading);
+
+      setTimeout(function() {
+         navigator.compass.clearWatch(watchID);
+      }, 10000);
+   };
+
+   function compassError(error) {
+      alert('CompassError: ' + error.code);
+   };
+}
 //------------------------------------------------------------------------         
 
 //------------------------------------------------------------------------         
