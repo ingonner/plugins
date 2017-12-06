@@ -16,6 +16,10 @@ var app = {
         document.getElementById("findContact").addEventListener("click", findContact);
         document.getElementById("deleteContact").addEventListener("click", deleteContact);
         
+        document.getElementById("networkInfo").addEventListener("click", networkInfo);
+        document.addEventListener("offline", onOffline, false);
+        document.addEventListener("online", onOnline, false);
+        
       
         
 // -------------------------------------------------------------------------------------        
@@ -86,39 +90,28 @@ function deleteContact() {
         
     // -------------------------------------------------------------------------------------        
    
-        
-        ////esta parte de aqui estará monitoreando el estado de conexión si se encuentra conectado a una red el estado cambiara a online lo que provocara que entre en la función.
-    document.addEventListener("online", onOnline, false);
-    function onOnline() {
-////esta variable es donde se guardara el valor que sera enviado por el tipo de conexión.                    
-var networkState = navigator.connection.type;
-/////lo comparara dentro del arreglo para declarar un texto mas amigable y entendible, estos testos entre comillas pueden modificarse a como uno guste cambiando su contenido
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.CELL]     = 'Cell generic connection';
-    states[Connection.NONE]     = 'No network connection';
-////con el alert mostrara en que tipo de conexion se ha establecido
-        alert('se ha conectado a: ' + states[networkState]);
-///y esta parte enviara el valor que obtubo al consultar la conexion a el span que declaramos en index.html esto para mostrar en pantalla que conexion es
-        document.getElementById("connectionType").innerHTML = states[networkState];
-    }
-/////esta parte es para lanzar una alerta si el dispositivo se encuentra desconectado y entrara a la función onOffline
-    document.addEventListener("offline", onOffline, false);
+        function networkInfo() {
+   var networkState = navigator.connection.type;
+   var states = {};
+   states[Connection.UNKNOWN]  = 'Unknown connection';
+   states[Connection.ETHERNET] = 'Ethernet connection';
+   states[Connection.WIFI]     = 'WiFi connection';
+   states[Connection.CELL_2G]  = 'Cell 2G connection';
+   states[Connection.CELL_3G]  = 'Cell 3G connection';
+   states[Connection.CELL_4G]  = 'Cell 4G connection';
+   states[Connection.CELL]     = 'Cell generic connection';
+   states[Connection.NONE]     = 'No network connection';
+   alert('Connection type: ' + states[networkState]);
+}
 
-    function onOffline() {
-///de igual manera el alert nos dira que no se encunetra conectado
-        alert('te has desconectado');
-////esta parte de aquí ara que cambie el valor que tenia span.
-        document.getElementById("connectionType").innerHTML = "no te encuentras conectado a ninguna red";
-    }
-//esta declarara para que se reinicie el valor cuando no se encuentre conectado a nada y asi vuelva obtener otro nuevo al cambiar la conexion
-    networkState = null;
+function onOffline() {
+   alert('You are now offline!');
+}
 
+function onOnline() {
+   alert('You are now online!');
+}
+  
  //-----------------------------------------------------------------------         
         
         
