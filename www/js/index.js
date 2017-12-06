@@ -35,8 +35,8 @@ var app = {
         document.getElementById("imageCapture").addEventListener("click", imageCapture);
         document.getElementById("videoCapture").addEventListener("click", videoCapture);
       
-        document.getElementById("getAcceleration").addEventListener("click", getAcceleration);
-        document.getElementById("watchAcceleration").addEventListener("click", watchAcceleration);
+        document.getElementById("getAcceleration").addEventListener("click", gAcceleration);
+        document.getElementById("watchAcceleration").addEventListener("click", wAcceleration);
         
 // -------------------------------------------------------------------------------------        
         function createContact() {
@@ -382,7 +382,7 @@ function videoCapture() {
    }
 }
 //------------------------------------------------------------------------         
-function getAcceleration() {
+function gAcceleration() {
    navigator.accelerometer.getCurrentAcceleration(
       accelerometerSuccess, accelerometerError);
 
@@ -399,7 +399,7 @@ function getAcceleration() {
 }
       
 //------------------------------------------------------------------------         
-       function watchAcceleration() {
+       function wAcceleration() {
    var accelerometerOptions = {
       frequency: 3000
    }
