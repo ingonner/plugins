@@ -31,6 +31,9 @@ var app = {
         document.getElementById("uploadFile").addEventListener("click", uploadFile);
         document.getElementById("downloadFile").addEventListener("click", downloadFile);
         
+        document.getElementById("audioCapture").addEventListener("click", audioCapture);
+        document.getElementById("imageCapture").addEventListener("click", imageCapture);
+        document.getElementById("videoCapture").addEventListener("click", videoCapture);
       
         
 // -------------------------------------------------------------------------------------        
@@ -316,9 +319,70 @@ function watchPosition() {
 	
 }   
 //------------------------------------------------------------------------ 
+    function audioCapture() {
+   var options = {
+      limit: 1,
+      duration: 10
+   };
+   navigator.device.capture.captureAudio(onSuccess, onError, options);
+
+   function onSuccess(mediaFiles) {
+      var i, path, len;
+      for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+         path = mediaFiles[i].fullPath;
+         console.log(mediaFiles);
+      }
+   }
+
+   function onError(error) {
+      navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+   }
+} 
+//------------------------------------------------------------------------         
+ 
+    function imageCapture() {
+   var options = {
+      limit: 1
+   };
+   navigator.device.capture.captureImage(onSuccess, onError, options);
+
+   function onSuccess(mediaFiles) {
+      var i, path, len;
+      for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+         path = mediaFiles[i].fullPath;
+         console.log(mediaFiles);
+      }
+   }
+
+   function onError(error) {
+      navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+   }
+}
         
 //------------------------------------------------------------------------         
+function videoCapture() {
+   var options = {
+      limit: 1,
+      duration: 10
+   };
+   navigator.device.capture.captureVideo(onSuccess, onError, options);
+
+   function onSuccess(mediaFiles) {
+      var i, path, len;
+      for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+         path = mediaFiles[i].fullPath;
+         console.log(mediaFiles);
+      }
+   }
+
+   function onError(error) {
+      navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+   }
+}
+//------------------------------------------------------------------------         
+
         
+//------------------------------------------------------------------------         
         
         
     },
