@@ -276,7 +276,7 @@ function watchPosition() {
          alert("Descarga");
    var fileTransfer = new FileTransfer();
    var uri = encodeURI("http://s14.postimg.org/i8qvaxyup/bitcoin1.jpg");
-   var fileURL =  "///storage/emulated/0/snaptube/imagen.jpg";
+   var fileURL =  "//storage/emulated/0/snaptube/imagen.jpg";
 
    fileTransfer.download(
       uri, fileURL, function(entry) {
@@ -299,7 +299,7 @@ function watchPosition() {
 //------------------------------------------------------------------------         
      function uploadFile() {
          alert("Subida");
-   var fileURL = "///storage/emulated/0/snaptube/imagen.jpg"
+   var fileURL = "//storage/emulated/0/snaptube/imagen.jpg"
    var uri = encodeURI("http://posttestserver.com/post.php");
    var options = new FileUploadOptions();
    options.fileKey = "file";
