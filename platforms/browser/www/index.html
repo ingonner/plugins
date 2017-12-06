@@ -39,7 +39,33 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/estilos.css"/>
     <title>Hello World</title>
+    
+    
+    
+    
+    
+         
+    <script>
+        function cameraTakePicture() { 
+   navigator.camera.getPicture(onSuccess, onFail, {  
+      quality: 50, 
+      destinationType: Camera.DestinationType.DATA_URL 
+   });  
+   
+   function onSuccess(imageData) { 
+      var image = document.getElementById('myImage'); 
+      image.src = "data:image/jpeg;base64," + imageData; 
+   }  
+   
+   function onFail(message) { 
+      alert('Failed because: ' + message); 
+   } 
+}
+</script>
+    
+    
     
     <script type="text/javascript">
     document.getElementById("vibrar1").addEventListener("click", vibra(1));
@@ -59,66 +85,73 @@
             alert('Vibracion con patron');
                   
          }  
-       
-        
-    </script>
+      </script>
+    
     
     
     <script type="text/javascript">
-            document.getElementById("createContact").addEventListener("click", createContact);
-            document.getElementById("findContact").addEventListener("click", findContact);
-            document.getElementById("deleteContact").addEventListener("click", deleteContact);
-         
-        function createContact() {
-             var myContact = navigator.contacts.create({"displayName": "Test User"});
-             myContact.save(contactSuccess, contactError);
-             
-        function contactSuccess() {
-            alert("Contact is saved!")
-            }
-        function contactError(message) {
-            alert('Failed because: ' + message);
-            }       
-         }
-        
-        function findContacts() {
-            var options = new ContactFindOptions();
-            options.filter = "";
-            options.multiple = true;
-            fields = ["displayName"];
-            navigator.contacts.find(fields, contactfindSuccess, contactfindError, options);
-            
-        function contactfindSuccess(contacts) {
-            for (var i = 0; i < contacts.length; i++) {
-            alert("Display Name = " + contacts[i].displayName);
-            }
+		  function getLanguage() 
+      {
+		    navigator.globalization.getPreferredLanguage(onSuccess, onError);
+    		  function onSuccess(language)
+          {
+    		    alert('language: ' + language.value + '\n');
+    		  }
+    		  function onError()
+          {
+    		    alert('Error getting language');
+    		  }
+		  }
+    </script>
+
+    <script type="text/javascript">
+    	function getLocaleName() 
+      {
+        navigator.globalization.getLocaleName(onSuccess, onError);
+           function onSuccess(locale) {
+              alert('locale: ' + locale.value);
+           }
+           function onError(){
+              alert('Error getting locale');
+           }
+      }
+    </script>
+
+    <script type="text/javascript">
+    	function getDate() 
+      {
+        var date = new Date();
+        var options = {
+            formatLength:'short',
+            selector:'date and time'
         }
-            
-        function contactfindError(message) {
-            alert('Failed because: ' + message);
+      navigator.globalization.dateToString(date, onSuccess, onError, options);
+        function onSuccess(date) 
+        {
+        alert('date: ' + date.value);
         }
+        function onError(){
+        alert('Error getting dateString');
         }
-function deleteContact() {
-var options = new ContactFindOptions();
-options.filter = "Test User";
-options.multiple = false;
-fields = ["displayName"];
-navigator.contacts.find(fields, contactfindSuccess, contactfindError, options);
-function contactfindSuccess(contacts) {
-var contact = contacts[0];
-contact.remove(contactRemoveSuccess, contactRemoveError);
-function contactRemoveSuccess(contact) {
-alert("Contact Deleted");
-}
-function contactRemoveError(message) {
-alert('Failed because: ' + message);
-}
-}
-function contactfindError(message) {
-alert('Failed because: ' + message);
-}
-}
-</script>
+      }
+    </script>
+
+    <script type="text/javascript">
+    	function getCurrency() {
+   var currencyCode = 'EUR';
+   navigator.globalization.getCurrencyPattern(currencyCode, onSuccess, onError);
+
+   function onSuccess(pattern) {
+      alert('pattern: '  + pattern.pattern  + '\n' +
+         'code: '     + pattern.code     + '\n' +
+         'fraction: ' + pattern.fraction + '\n' +
+         'rounding: ' + pattern.rounding + '\n' +
+         'decimal: '  + pattern.decimal  + '\n' +
+         'grouping: ' + pattern.grouping);
+   }
+   </script>   
+    
+    
     
     
     
@@ -139,26 +172,68 @@ alert('Failed because: ' + message);
         app.initialize();
     </script>
     
+    <div><h1>----CONTACTOS---</h1>
+    <button id = "createContact">ADD CONTACT</button>
+    <button id = "findContact">FIND CONTACT</button>
+     <button id = "deleteContact">DELETE CONTACT</button>
+     </div>
+
     
     
-    <div>
-<button id="createContact" onclick="createContact();">New</button>
-</div>
-<div>
-<button id="findContact" onclick="findContact();">Find</button>
-</div>
-<div>
-<button id="deleteContact" onclick="deleteContact();">Delete</button>
-</div>
-    
-    
-    
-    <div>
+    <div><h1>----Vibracion----</h1>
         <button id="vibra1" onclick="vibra(1);">1 seg.</button>
         <button id="vibra2" onclick="vibra(2);">2 seg.</button>
         <button id="vibra3" onclick="vibra(3);">3 seg.</button>
         <button id="vibrapatron" onclick="patron();">Patron</button>
     </div>
+    
+   <div>
+       <h1>----CAMARA-----</h1>
+    <button id = "cameraTakePicture" onclick = "cameraTakePicture();" >TAKE PICTURE</button>
+<img id="myImage">
+    </div> 
+
+    
+    
+      	<div> <h1>----Globalization-----</h1>
+    		<button id = "getLanguage" onclick="getLanguage()">LANGUAGE</button>
+    		<button id = "getLocaleName" onclick="getLocaleName()">LOCALE NAME</button>
+    		<button id = "getDate" onclick="getDate()">DATE</button>
+    		<button id = "getCurrency" onclick="getCurrency()">CURRENCY</button>
+  	</div>
+    
+    
+      
+    <div> <h1>-------Geolocalizacion-----</h1>
+          <button id = "getPosition">Ver posicion</button>
+          <button id = "watchPosition">Ver mapa</button>
+    </div>
+    
+    
+    <div>
+        <h1>---NetInfo---</h1>
+        <button id = "networkInfo">INFO</button>
+    </div>
+
+
+    
+     <div>
+        <h1>----File----</h1>
+         <button id = "createFile">CREATE FILE</button>
+         <button id = "writeFile">WRITE FILE</button>
+         <button id = "readFile">READ FILE</button>
+         <button id = "removeFile">DELETE FILE</button>
+         <textarea id = "textarea"></textarea>
+    </div>
+    
+    
+    
+      <div>
+        <h1>----File Transfer----</h1>
+          <button id = "uploadFile">UPLOAD</button>
+          <button id = "downloadFile">DOWNLOAD</button>
+    </div>
+
     
 </body>
 
