@@ -30,6 +30,7 @@ var app = {
         
         document.getElementById("uploadFile").addEventListener("click", uploadFile);
         document.getElementById("downloadFile").addEventListener("click", downloadFile);
+        console.log(FileTransfer);
         
         document.getElementById("audioCapture").addEventListener("click", audioCapture);
         document.getElementById("imageCapture").addEventListener("click", imageCapture);
@@ -40,6 +41,9 @@ var app = {
         
         document.getElementById("getOrientation").addEventListener("click", getOrientation);
         document.getElementById("watchOrientation").addEventListener("click", watchOrientation);
+        
+        
+
         
         
 // -------------------------------------------------------------------------------------        
@@ -276,7 +280,7 @@ function watchPosition() {
          alert("Descarga");
    var fileTransfer = new FileTransfer();
    var uri = encodeURI("http://s14.postimg.org/i8qvaxyup/bitcoin1.jpg");
-   var fileURL =  "//storage/emulated/0/snaptube/imagen.jpg";
+   var fileURL =  "///storage/emulated/0/snaptube/";
 
    fileTransfer.download(
       uri, fileURL, function(entry) {
@@ -299,7 +303,7 @@ function watchPosition() {
 //------------------------------------------------------------------------         
      function uploadFile() {
          alert("Subida");
-   var fileURL = "//storage/emulated/0/snaptube/imagen.jpg"
+   var fileURL = "///storage/emulated/0/snaptube/imagen.jpg"
    var uri = encodeURI("http://posttestserver.com/post.php");
    var options = new FileUploadOptions();
    options.fileKey = "file";
