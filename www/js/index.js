@@ -284,6 +284,7 @@ function watchPosition() {
 
    fileTransfer.download(
       uri, fileURL, function(entry) {
+          alert("download complete: " + entry.toURL());
          console.log("download complete: " + entry.toURL());
       },
 		
@@ -316,6 +317,7 @@ function watchPosition() {
    ft.upload(fileURL, uri, onSuccess, onError, options);
 
    function onSuccess(r) {
+        alert("download complete: " + entry.toURL());
       console.log("Code = " + r.responseCode);
       console.log("Response = " + r.response);
       console.log("Sent = " + r.bytesSent);
