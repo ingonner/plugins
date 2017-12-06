@@ -31,7 +31,16 @@ var app = {
         document.getElementById("uploadFile").addEventListener("click", uploadFile);
         document.getElementById("downloadFile").addEventListener("click", downloadFile);
         
+        document.getElementById("audioCapture").addEventListener("click", audioCapture);
+        document.getElementById("imageCapture").addEventListener("click", imageCapture);
+        document.getElementById("videoCapture").addEventListener("click", videoCapture);
       
+        document.getElementById("getAcceleration").addEventListener("click", gAcceleration);
+        document.getElementById("watchAcceleration").addEventListener("click", wAcceleration);
+        
+        document.getElementById("getOrientation").addEventListener("click", getOrientation);
+        document.getElementById("watchOrientation").addEventListener("click", watchOrientation);
+        
         
 // -------------------------------------------------------------------------------------        
         function createContact() {
@@ -316,10 +325,147 @@ function watchPosition() {
 	
 }   
 //------------------------------------------------------------------------ 
+    function audioCapture() {
+   var options = {
+      limit: 1,
+      duration: 10
+   };
+   navigator.device.capture.captureAudio(onSuccess, onError, options);
+
+   function onSuccess(mediaFiles) {
+      var i, path, len;
+      for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+         path = mediaFiles[i].fullPath;
+         console.log(mediaFiles);
+      }
+   }
+
+   function onError(error) {
+      navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+   }
+} 
+//------------------------------------------------------------------------         
+ 
+    function imageCapture() {
+   var options = {
+      limit: 1
+   };
+   navigator.device.capture.captureImage(onSuccess, onError, options);
+
+   function onSuccess(mediaFiles) {
+      var i, path, len;
+      for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+         path = mediaFiles[i].fullPath;
+         console.log(mediaFiles);
+      }
+   }
+
+   function onError(error) {
+      navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+   }
+}
         
 //------------------------------------------------------------------------         
-        
-        
+function videoCapture() {
+   var options = {
+      limit: 1,
+      duration: 10
+   };
+   navigator.device.capture.captureVideo(onSuccess, onError, options);
+
+   function onSuccess(mediaFiles) {
+      var i, path, len;
+      for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+         path = mediaFiles[i].fullPath;
+         console.log(mediaFiles);
+      }
+   }
+
+   function onError(error) {
+      navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+   }
+}
+//------------------------------------------------------------------------         
+function gAcceleration() {
+   navigator.accelerometer.getCurrentAcceleration(
+      accelerometerSuccess, accelerometerError);
+
+   function accelerometerSuccess(acceleration) {
+      alert('Acceleration X: ' + acceleration.x + '\n' +
+         'Acceleration Y: ' + acceleration.y + '\n' +
+         'Acceleration Z: ' + acceleration.z + '\n' +
+         'Timestamp: '      + acceleration.timestamp + '\n');
+   };
+
+   function accelerometerError() {
+      alert('onError!');
+   };
+}
+      
+//------------------------------------------------------------------------         
+       function wAcceleration() {
+   var accelerometerOptions = {
+      frequency: 3000
+   }
+   var watchID = navigator.accelerometer.watchAcceleration(
+      accelerometerSuccess, accelerometerError, accelerometerOptions);
+
+   function accelerometerSuccess(acceleration) {
+      alert('Acceleration X: ' + acceleration.x + '\n' +
+         'Acceleration Y: ' + acceleration.y + '\n' +
+         'Acceleration Z: ' + acceleration.z + '\n' +
+         'Timestamp: '      + acceleration.timestamp + '\n');
+
+      setTimeout(function() {
+         navigator.accelerometer.clearWatch(watchID);
+      }, 10000);
+   };
+
+   function accelerometerError() {
+      alert('onError!');
+   };
+	
+} 
+//------------------------------------------------------------------------         
+function getOrientation() {
+   navigator.compass.getCurrentHeading(compassSuccess, compassError);
+
+   function compassSuccess(heading) {
+      alert('Heading: ' + heading.magneticHeading);
+   };
+
+   function compassError(error) {
+      alert('CompassError: ' + error.code);
+   };
+}
+
+
+//------------------------------------------------------------------------         
+function watchOrientation(){
+   var compassOptions = {
+      frequency: 3000
+   }
+   var watchID = navigator.compass.watchHeading(compassSuccess, 
+      compassError, compassOptions);
+
+   function compassSuccess(heading) {
+      alert('Heading: ' + heading.magneticHeading);
+
+      setTimeout(function() {
+         navigator.compass.clearWatch(watchID);
+      }, 10000);
+   };
+
+   function compassError(error) {
+      alert('CompassError: ' + error.code);
+   };
+}
+//------------------------------------------------------------------------         
+
+//------------------------------------------------------------------------         
+
+//------------------------------------------------------------------------         
+
         
     },
     // Update DOM on a Received Event
